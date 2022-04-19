@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="heart.css" />
+
+    <title>对不起</title>
+    <script type="text/javascript">
+      // function([string1, string2],target id,[color1,color2])
+
+      setTimeout(() => {
+        consoleText(
+          [
+            "哈喽美仟",
+            "非常对不起呀",
+            "我伤害了你，让你失望了",
+            "我知道自己错了",
+            "希望你能原谅我",
+            "我知道这么做很厚颜无耻",
+            "但还是想获得你的原谅",
+            "希望能彌補你受的伤害",
+            "这段时间真的很开心",
+            "我想继续这段快乐",
+            "想和你继续在一起",
+            "谢谢你",
+          ],
+          "text",
+          ["tomato", "rebeccapurple", "lightblue"]
+        );
+      }, 2000);
+
+      function consoleText(words, id, colors) {
+        if (colors === undefined) colors = ["#fff"];
+        var visible = true;
+        var con = document.getElementById("console");
+        var letterCount = 1;
+        var x = 1;
+        var waiting = false;
+        var target = document.getElementById(id);
+        target.setAttribute("style", "color:" + colors[0]);
+        window.setInterval(function () {
+          if (letterCount === 0 && waiting === false) {
+            waiting = true;
+            target.innerHTML = words[0].substring(0, letterCount);
+            window.setTimeout(function () {
+              var usedColor = colors.shift();
+              colors.push(usedColor);
+              var usedWord = words.shift();
+              words.push(usedWord);
+              x = 1;
+              target.setAttribute("style", "color:" + colors[0]);
+              letterCount += x;
+              waiting = false;
+            }, 1000);
+          } else if (letterCount === words[0].length + 1 && waiting === false) {
+            waiting = true;
+            window.setTimeout(function () {
+              x = -1;
+              letterCount += x;
+              waiting = false;
+            }, 1000);
+          } else if (waiting === false) {
+            target.innerHTML = words[0].substring(0, letterCount);
+            letterCount += x;
+          }
+        }, 120);
+        window.setInterval(function () {
+          if (visible === true) {
+            con.className = "console-underscore hidden";
+            visible = false;
+          } else {
+            con.className = "console-underscore";
+
+            visible = true;
+          }
+        }, 400);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="console-container">
+      <span id="text"></span>
+      <div class="console-underscore" id="console">&#95;</div>
+    </div>
+  </body>
+</html>
